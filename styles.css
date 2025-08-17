@@ -1,27 +1,27 @@
 @font-face {
     font-family: 'Dogica';
-    src: url('/static/font/dogica.ttf') format('truetype');
+    src: url('./static/font/dogica.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Dogica';
-    src: url('/static/font/dogicabold.ttf') format('truetype');
+    src: url('./static/font/dogicabold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'DogicaPixel';
-    src: url('/static/font/dogicapixel.ttf') format('truetype');
+    src: url('./static/font/dogicapixel.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'DogicaPixel';
-    src: url('/static/font/dogicapixelbold.ttf') format('truetype');
+    src: url('./static/font/dogicapixelbold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
   }
