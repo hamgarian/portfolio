@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Hamgarian - Portfolio</title>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">Hamgarian</div>
+        <ul class="nav-links">
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#skills">Skills</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <section id="home" class="hero">
+      <div class="hero-content container">
+        <img src="/static/pfp.png" alt="Profile Picture" class="profile-image fade-in" />
+        <h1 class="fade-in">Hamgarian</h1>
+        <h2 class="fade-in">Fullstack Developer / Game Developer</h2>
+        <p class="fade-in">I make shit</p>
+      </div>
+    </section>
+    <section id="about" class="about">
+      <div class="container">
+        <h2 class="section-title fade-in">About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <h3>Ilham Edgar Maulana Goesasi</h3>
+            <p> I’m a Computer Science student at IPB University with a strong interest in fullstack development and game creation. I enjoy building things that are both functional and fun to interact with. </p>
+            <p> It all started with setting up Minecraft servers back in school — learning how systems work by breaking and fixing them. Since then, I’ve explored web technologies, cloud platforms, and creative tools to turn ideas into working projects. </p>
+          </div>
+          <div class="student-info fade-in">
+            <h4>Student Information</h4>
+            <p>
+              <strong>Student Code:</strong> M0403241087
+            </p>
+            <p>
+              <strong>University:</strong> IPB University
+            </p>
+            <p>
+              <strong>Field:</strong> Computer Science
+            </p>
+            <p>
+              <strong>Proxy:</strong> Borel
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="skills" class="skills">
+      <div class="container">
+        <h2 class="section-title fade-in">Skills & Expertise</h2>
+        <div class="skills-grid">
+          <div class="skill-card fade-in">
+            <h3>Fullstack & Cloud</h3>
+            <p>Experience with SvelteKit, Firebase, FastAPI, and deployment on platforms like GCP and Oracle Cloud.</p>
+          </div>
+          <div class="skill-card fade-in">
+            <h3>Python Development</h3>
+            <p>Used for scripting, backend APIs, automation, scraping, and working with WebSockets.</p>
+          </div>
+          <div class="skill-card fade-in">
+            <h3>Game Development</h3>
+            <p>Development using Unity and C#, for projects ranging from gameplay prototypes to interactive systems.</p>
+          </div>
+          <div class="skill-card fade-in">
+            <h3>Cybersecurity</h3>
+            <p>Understanding of common web vulnerabilities and experience identifying real-world security issues.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="section-title fade-in">📼 Project Showcase</h2>
+        <div class="project-grid">
+          <div class="project-card fade-in">
+            <div class="video-placeholder">
+              <video src="/static/videos/chatroom.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>Chat Room Burik</h3>
+              <p> A real-time chat room inspired by Discord — complete with usernames, profile pictures, threaded replies, and a persistent Firebase database that’s still live today. Built using <strong>SvelteKit</strong> + <strong>Firebase</strong>. </p>
+            </div>
+          </div>
+          <div class="project-card fade-in">
+            <div class="video-placeholder">
+              <video src="/static/videos/menfess.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>ST27 Menfess App</h3>
+              <p> A fully-anonymous menfess app built for Class ST-27. Seamlessly integrates with the <strong>Twitter API</strong> to instantly forward user messages with near-zero latency. Clean, fast, and completely anonymous. </p>
+            </div>
+          </div>
+          <div class="project-card fade-in">
+            <div class="video-placeholder">
+              <video src="/static/videos/igroast.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>Instagram Profile Roaster</h3>
+              <p> A fullstack roast engine that analyzes your Instagram profile. Uses <strong>SvelteKit</strong> frontend, <strong>FastAPI</strong> backend with <strong>WebSockets</strong>, scrapes data via <strong>Selenium</strong>, and generates AI roasts with the <strong>Gemini API</strong>. With real-time progress reporting. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title fade-in">Get In Touch</h2>
+        <div class="contact-info">
+          <div class="contact-item fade-in">
+            <h4>University</h4>
+            <p>IPB University</p>
+          </div>
+          <div class="contact-item fade-in">
+            <h4>Student ID</h4>
+            <p>M0403241087</p>
+          </div>
+          <div class="contact-item fade-in">
+            <h4>Field</h4>
+            <p>Computer Science</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Hamgarian. All rights reserved.</p>
+      </div>
+    </footer>
+    <div class="music-player" id="musicPlayer">
+      <div class="music-info" id="musicInfo">sans. - Toby Fox</div>
+      <svg id="playIcon" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="/static/audio/sans.mp3" type="audio/mpeg">
+    </audio>
+    <script src="scripts.js"></script>
+  </body>
+</html>
