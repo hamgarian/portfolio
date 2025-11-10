@@ -1,3 +1,8 @@
+  h3 {
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+
 @font-face {
     font-family: 'Dogica';
     src: url('./static/font/dogica.ttf') format('truetype');
@@ -50,11 +55,12 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 1rem;
+    will-change: transform;
   }
 
   header {
-    background: rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: #111;
+    border-bottom: 1px solid #222;
     position: fixed;
     top: 0;
     width: 100%;
@@ -66,6 +72,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 0;
+    opacity:1;
   }
 
   .logo {
@@ -110,6 +117,12 @@
     font-family: 'DogicaPixel', monospace;
     font-size: clamp(1.5rem, 5vw, 2.2rem);
     margin-bottom: 1rem;
+    transition: transform 0.4s ease;
+  }
+
+  .hero h1.idle-wobble {
+    position: relative;
+    animation: wobble 5s ease-in-out infinite;
   }
 
   .hero h2 {
@@ -147,7 +160,7 @@ transition: transform 0.3s ease;
   }
 
   .about {
-    background: rgba(255, 255, 255, 0.05);
+    position: relative;
   }
 
   .section-title {
@@ -164,16 +177,23 @@ transition: transform 0.3s ease;
     align-items: center;
   }
 
+  
+
   .about-text h3 {
     font-family: 'DogicaPixel', monospace;
     font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+    margin-bottom:2rem;
   }
 
   .about-text p {
     font-size: 0.85rem;
     color: #ccc;
     margin-bottom: 0.8rem;
+  }
+
+  .about .container {
+    position: relative;
+    z-index: 1;
   }
 
   .student-info {
@@ -193,6 +213,12 @@ transition: transform 0.3s ease;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.2rem;
     margin-top: 2rem;
+    position: relative;
+  }
+
+  .skills-grid.is-dragging .skill-card:not(.dragging):not(.placeholder) {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
   }
 
   .skill-card {
@@ -201,18 +227,97 @@ transition: transform 0.3s ease;
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
-    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: grab;
+    user-select: none;
   }
 
   .skill-card h3 {
     font-family: 'DogicaPixel', monospace;
     font-size: 1rem;
-    margin-bottom: 0.5rem;
   }
 
   .skill-card p {
     font-size: 0.875rem;
     color: #ccc;
+  }
+
+  .skill-card.dragging {
+    opacity: 1;
+    cursor: grabbing;
+    background: rgba(13, 13, 13, 1);
+    box-shadow: 0 24px 42px rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    z-index: 1500;
+  }
+
+  .skill-card.placeholder {
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 0.35;
+    pointer-events: none;
+    transition: none;
+  }
+
+  .drag-indicator {
+    position: absolute;
+    top: -2.5rem;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-family: 'DogicaPixel', monospace;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    animation: flashPulse 1.5s ease-in-out infinite;
+  }
+
+  .drag-indicator.show {
+    opacity: 1;
+  }
+
+  .drag-indicator.hide {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .drag-indicator svg {
+    width: 20px;
+    height: 20px;
+    animation: bounceArrow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes flashPulse {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounceArrow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .drag-indicator {
+      display: none;
+    }
   }
 
   .contact {
@@ -360,15 +465,17 @@ object-fit: cover;
 }
 
 .project-info {
-padding: 1rem;
-font-size: 0.9rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .project-info h3 {
-font-family: 'DogicaPixel', monospace;
-margin-bottom: 0.5rem;
-font-size: 1rem;
-color: #fff;
+  font-family: 'DogicaPixel', monospace;
+  font-size: 1rem;
+  color: #fff;
 }
 
 .project-info p {
@@ -376,6 +483,106 @@ color: #ccc;
 font-size: 0.75rem;
 }
 
+.tag-filter-menu {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.tag-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'DogicaPixel', monospace;
+  font-size: 0.9rem;
+}
+
+.add-tag-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: 'DogicaPixel', monospace;
+}
+
+.add-tag-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-family: 'DogicaPixel', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tag-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tag-btn.active {
+  box-shadow: 0 0 10px currentColor;
+  transform: scale(1.05);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.project-tag {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'DogicaPixel', monospace;
+  font-size: 0.65rem;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.project-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.project-tag.active {
+  box-shadow: 0 0 10px currentColor;
+  transform: scale(1.05);
+}
+
+.project-card.hidden {
+  display: none;
+}
 
 @media (max-width: 768px) {
 .project-grid {
@@ -387,14 +594,40 @@ font-size: 0.75rem;
   }
 }
 
+  .about::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0;
+    border: 1px solid transparent;
+    transform-origin: center;
+    transform: scaleX(1);
+    transition:
+      transform 0.6s ease,
+      border-radius 0.6s ease,
+      border-color 0.6s ease,
+      background 0.6s ease;
+    z-index: 0;
+  }
+
+@media (min-width: 769px) {
+  .about.compact::before {
+    transform: scaleX(var(--compact-scale, 0.85));
+    border-radius: 24px;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
 
 .music-player {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #1a1a1a;
+  border: 1px solid #333;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -407,13 +640,13 @@ font-size: 0.75rem;
 }
 
 .music-player:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #262626;
   transform: scale(1.1);
 }
 
 .music-player.playing {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  background: #333;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .music-player svg {
@@ -431,8 +664,8 @@ font-size: 0.75rem;
   right: 70px;
   top: 25%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #1a1a1a;
+  border: 1px solid #333;
   border-radius: 20px;
   padding: 0.5rem 1rem;
   color: #fff;
@@ -454,6 +687,24 @@ font-size: 0.75rem;
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+
+@keyframes wobble {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate3d(1px, -2px, 0) rotate(-0.3deg);
+  }
+  40% {
+    transform: translate3d(-1px, 1px, 0) rotate(0.3deg);
+  }
+  60% {
+    transform: translate3d(2px, 0, 0) rotate(-0.4deg);
+  }
+  80% {
+    transform: translate3d(-1px, 2px, 0) rotate(0.2deg);
+  }
 }
 
 

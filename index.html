@@ -22,6 +22,9 @@
             <a href="#skills">Skills</a>
           </li>
           <li>
+            <a href="#projects">Projects</a>
+          </li>
+          <li>
             <a href="#contact">Contact</a>
           </li>
         </ul>
@@ -40,9 +43,9 @@
         <h2 class="section-title fade-in">About Me</h2>
         <div class="about-content">
           <div class="about-text">
-            <h3>Ilham Edgar Maulana Goesasi</h3>
+            <h3>Ilham Edgar Maulana</h3>
             <p> I’m a Computer Science student at IPB University with a strong interest in fullstack development and game creation. I enjoy building things that are both functional and fun to interact with. </p>
-            <p> It all started with setting up Minecraft servers back in school — learning how systems work by breaking and fixing them. Since then, I’ve explored web technologies, cloud platforms, and creative tools to turn ideas into working projects. </p>
+            <p> From setting up Minecraft servers back in elementary, learning how systems work from trial and error. I have explored a bunch of web technologies, learned to deploy to cloud platforms, and used loads of creative tools to turn my ideas into reality. </p>
           </div>
           <div class="student-info fade-in">
             <h4>Student Information</h4>
@@ -79,41 +82,125 @@
             <p>Development using Unity and C#, for projects ranging from gameplay prototypes to interactive systems.</p>
           </div>
           <div class="skill-card fade-in">
-            <h3>Cybersecurity</h3>
-            <p>Understanding of common web vulnerabilities and experience identifying real-world security issues.</p>
+            <h3>Cyber Security</h3>
+            <p>Identifying vulnerabilities and analyzing exploits, with hands-on experience in CTFs and security best practices.</p>
           </div>
+        </div>
+        <div class="drag-indicator" id="dragIndicator">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 11l5-5 5 5M7 18l5-5 5 5"/>
+          </svg>
+          <span>Drag me!</span>
         </div>
       </div>
     </section>
     <section id="projects" class="projects">
       <div class="container">
-        <h2 class="section-title fade-in">📼 Project Showcase</h2>
-        <div class="project-grid">
-          <div class="project-card fade-in">
+        <h2 class="section-title fade-in">Project Showcase</h2>
+        <div class="tag-filter-menu fade-in" id="tagFilterMenu">
+          <div class="tag-filter-header">
+            <span>Filter by tags:</span>
+          </div>
+          <div class="tag-list" id="tagList"></div>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <div class="project-card fade-in" data-tags='["#vercel", "#sveltekit", "#firebase", "#fullstack", "#web"]'>
             <div class="video-placeholder">
               <video src="./static/videos/chatroom.mp4" muted autoplay loop playsinline></video>
             </div>
             <div class="project-info">
               <h3>Chat Room Burik</h3>
-              <p> A real-time chat room inspired by Discord — complete with usernames, profile pictures, threaded replies, and a persistent Firebase database that’s still live today. Built using <strong>SvelteKit</strong> + <strong>Firebase</strong>. </p>
+              <p> A real-time chat room inspired by Discord. Complete with usernames, profile pictures, threaded replies, using Firebase Firestore database that's still live today. Built using <strong>SvelteKit</strong> + <strong>Firebase</strong>. Hosted in <strong>Vercel</strong>.</p>
+              <div class="project-tags"></div>
             </div>
           </div>
-          <div class="project-card fade-in">
+          <div class="project-card fade-in" data-tags='["#vercel", "#twitter", "#api", "#sveltekit", "#fullstack", "#web", "#firebase"]'>
             <div class="video-placeholder">
               <video src="./static/videos/menfess.mp4" muted autoplay loop playsinline></video>
             </div>
             <div class="project-info">
               <h3>ST27 Menfess App</h3>
-              <p> A fully-anonymous menfess app built for Class ST-27. Seamlessly integrates with the <strong>Twitter API</strong> to instantly forward user messages with near-zero latency. Clean, fast, and completely anonymous. </p>
+              <p> A fully-anonymous menfess app built for Class ST-27. Seamlessly integrates with the <strong>Twitter API</strong> to instantly forward user messages with near-zero latency. Clean, fast, and completely anonymous. Hosted in <strong>Vercel</strong>.</p>
+              <div class="project-tags"></div>
             </div>
           </div>
-          <div class="project-card fade-in">
+          <div class="project-card fade-in" data-tags='["#ai", "#vercel", "#sveltekit", "#fastapi", "#websockets", "#selenium", "#gemini", "#fullstack", "#web"]'>
             <div class="video-placeholder">
               <video src="./static/videos/igroast.mp4" muted autoplay loop playsinline></video>
             </div>
             <div class="project-info">
               <h3>Instagram Profile Roaster</h3>
-              <p> A fullstack roast engine that analyzes your Instagram profile. Uses <strong>SvelteKit</strong> frontend, <strong>FastAPI</strong> backend with <strong>WebSockets</strong>, scrapes data via <strong>Selenium</strong>, and generates AI roasts with the <strong>Gemini API</strong>. With real-time progress reporting. </p>
+              <p> A full stack app that analyzes your Instagram profile and roasts it using AI. Uses <strong>SvelteKit</strong> frontend, <strong>FastAPI</strong> backend with <strong>WebSockets</strong> for loading update, scrapes data via <strong>Selenium</strong>, and generates AI roasts with google's <strong>Gemini API</strong>. Hosted in <strong>Vercel</strong>.</p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#unity", "#gamedev", "#illustrator", "#web", "#vercel"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/clicker.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3><strong>Milk Clicker</strong></h3>
+              <p>A Unity clicker game where you tap a <strong>milk carton</strong> to uncover the secret milk ending. Game art was made by me in <strong>Adobe Illustrator</strong>. Hosted in <strong>Vercel</strong>.</p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#unity", "#gamedev", "#adobe-flash", "#web", "#vercel"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/quizgoblok.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3><strong>Quiz Goblok</strong></h3>
+              <p>A Unity satirical quiz game inspired by <strong>The Impossible Quiz</strong> and local Indonesian humor. Game art was made by me in <strong>Adobe Flash</strong>. Hosted in <strong>Vercel</strong>.</p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#vercel", "#sveltekit", "#firebase", "#gemini", "#ai", "#auth", "#web", "#fullstack"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/fuckyoubouttado.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>Fuck You Boutta Do?</h3>
+              <p>
+                Judgmental AI Todo-List app with a grunge aesthetic, leaderboards, and Google login (Firebase Auth). Add todos, get scored by AI (<strong>Gemini API</strong>), and compete for the top spot! Hosted in <strong>Vercel</strong>.
+              </p>
+              </p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#vercel", "#sveltekit", "#frontend", "#design", "#web"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/ngertiio.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>Ngerti.io</h3>
+              <p>
+                Frontend UI proof of concept for <strong>Ngerti.io</strong>, an online learning platform for college majors. Features include a shop, subscription plans, quests, daily check-in rewards, major selection, profile, and settings. Inspired by <strong>Ruangguru</strong> and <strong>Duolingo</strong>. Hosted in <strong>Vercel.</strong>
+              </p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#unity", "#gamedev", "#web", "#vercel", "#data"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/semnasbattle.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3><strong>Semnas Battle</strong></h3>
+              <p>
+                A Unity-made web visualizer designed for big events, where up to 500 participants are transformed into unique 3D cubes (using data from a <strong>.csv</strong> file). These virtual cubes battle it out in an epic simulation. Only one survives to win the lottery. Hosted in <strong>Vercel</strong>.
+              </p>
+              <div class="project-tags"></div>
+            </div>
+          </div>
+          <div class="project-card fade-in" data-tags='["#docker", "#evolutionapi", "#ai", "#selfhost", "#vps", "#oraclecloud", "#n8n", "#api", "#gemini", "#backend", "#web", "#whatsapp", "#automation", "#bot"]'>
+            <div class="video-placeholder">
+              <video src="./static/videos/chillbot.mp4" muted autoplay loop playsinline></video>
+            </div>
+            <div class="project-info">
+              <h3>Chill WhatsApp Bot</h3>
+              <p>
+                Built an end-to-end self-hosted WhatsApp bot stack. Messages are received and sent via <strong>EvolutionAPI</strong>, connected in real time to <strong>Gemini API</strong> using <strong>n8n</strong> for workflow automation. Everything is fully <strong>dockerized</strong> (since Coolify uses Docker), self-hosted inside an <strong>Oracle Cloud VPS</strong>, deployed and managed with <strong>Coolify</strong>, and hosted on my own custom domain.
+              </p>
+              <div class="project-tags"></div>
             </div>
           </div>
         </div>
