@@ -884,6 +884,7 @@ flex: 0 0 100%;
   transform: translateX(20px);
   transition: all 0.5s ease;
   backdrop-filter: blur(10px);
+  pointer-events: none;
 }
 
 .music-info.show {
