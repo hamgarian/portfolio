@@ -93,6 +93,73 @@ document.addEventListener('DOMContentLoaded', () => {
     animateText(heroTitle, heroTitle.textContent.trim(), 500);
   }
 
+    // Initialize organization image sliders
+    const orgCarousels = document.querySelectorAll('.org-carousel');
+    orgCarousels.forEach((carousel) => {
+      const track = carousel.querySelector('.org-track');
+      if (!track) return;
+      let slides = Array.from(track.children);
+      if (slides.length <= 1) return;
+      
+      // Create seamless loop by cloning the first slide
+      const totalSlides = slides.length;
+      const firstClone = slides[0].cloneNode(true);
+      track.appendChild(firstClone);
+      slides = Array.from(track.children); // update to include clone
+      
+      let index = 0;
+      let width = carousel.clientWidth;
+      const intervalMs = parseInt(carousel.getAttribute('data-interval') || '1000', 10);
+      let timerId = null;
+      
+      const applyTransform = (withTransition = true) => {
+        track.style.transition = withTransition ? 'transform 400ms ease' : 'none';
+        track.style.transform = `translateX(${-index * width}px)`;
+      };
+      
+      const onResize = () => {
+        width = carousel.clientWidth;
+        // Snap to current index on resize without animation
+        applyTransform(false);
+      };
+      
+      const next = () => {
+        index += 1;
+        applyTransform(true);
+        // If we've reached the clone (index === totalSlides), snap back to first slide after transition
+        if (index === totalSlides) {
+          const handleTransitionEnd = () => {
+            track.removeEventListener('transitionend', handleTransitionEnd);
+            index = 0;
+            applyTransform(false);
+            // Force reflow to ensure the transform is applied without transition
+            // eslint-disable-next-line no-unused-expressions
+            track.offsetHeight;
+          };
+          track.addEventListener('transitionend', handleTransitionEnd);
+        }
+      };
+      
+      const startTimer = () => {
+        stopTimer();
+        timerId = setInterval(next, intervalMs);
+      };
+      
+      const stopTimer = () => {
+        if (timerId !== null) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+      };
+      
+      // Initialize
+      onResize();
+      window.addEventListener('resize', onResize);
+      startTimer();
+      
+      // Do not pause on hover or visibility changes; keep scrolling continuously
+    });
+
   const aboutSection = document.querySelector('.about');
   const updateAboutScale = () => {
     if (!aboutSection) return;
@@ -528,6 +595,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Organization "Read more" toggles
+(function() {
+  const orgCards = document.querySelectorAll('.org-card');
+  if (!orgCards.length) return;
+
+  orgCards.forEach(card => {
+    const collapsible = card.querySelector('.org-collapsible');
+    const toggleBtn = card.querySelector('.org-toggle');
+    if (!collapsible || !toggleBtn) return;
+
+    // Initialize collapsed state
+    const cssCollapsed = getComputedStyle(collapsible).getPropertyValue('--collapsed-height').trim() || '9.5rem';
+    collapsible.style.maxHeight = cssCollapsed;
+    toggleBtn.setAttribute('aria-expanded', 'false');
+
+    const updateExpandedHeight = () => {
+      // Temporarily set to auto to measure full height
+      collapsible.style.maxHeight = 'none';
+      const full = collapsible.scrollHeight;
+      collapsible.style.maxHeight = `${full}px`;
+    };
+
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        // Collapse
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        card.classList.remove('expanded');
+        // Force current height for smooth transition, then to 0
+        const current = collapsible.scrollHeight;
+        collapsible.style.maxHeight = `${current}px`;
+        requestAnimationFrame(() => {
+          collapsible.style.maxHeight = cssCollapsed;
+        });
+        toggleBtn.textContent = 'Read more';
+      } else {
+        // Expand
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        card.classList.add('expanded');
+        updateExpandedHeight();
+        toggleBtn.textContent = 'Show less';
+      }
+    });
+
+    // Recompute height on resize if expanded
+    window.addEventListener('resize', () => {
+      if (toggleBtn.getAttribute('aria-expanded') === 'true') {
+        updateExpandedHeight();
+      }
+    });
+  });
+})();
+
 window.addEventListener('scroll', () => {
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -829,4 +949,73 @@ document.addEventListener('visibilitychange', () => {
   // Initialize
   renderTagList();
   renderProjectTags();
+})();
+
+// Organization Tags (display-only)
+(function() {
+  const orgGrid = document.getElementById('orgGrid');
+  if (!orgGrid) return;
+
+  const defaultColors = {
+    '#sveltekit': '#ff3e00',
+    '#firebase': '#ffa000',
+    '#twitter': '#1da1f2',
+    '#api': '#00d4ff',
+    '#fastapi': '#009688',
+    '#websockets': '#4caf50',
+    '#selenium': '#43b02a',
+    '#gemini': '#4285f4',
+    '#fullstack': '#9c27b0',
+    '#web': '#2196f3',
+    '#backend': '#9c27b0',
+    '#event': '#03a9f4',
+    '#nodejs': '#83cd29',
+    '#react': '#61dafb',
+    '#community': '#8bc34a',
+    '#ops': '#795548',
+    '#design': '#e91e63'
+  };
+
+  let tagColors = JSON.parse(localStorage.getItem('tagColors') || '{}');
+  Object.assign(tagColors, defaultColors);
+
+  function saveTagColors() {
+    localStorage.setItem('tagColors', JSON.stringify(tagColors));
+  }
+
+  function getTagColor(tag) {
+    if (!tagColors[tag]) {
+      const hue = Math.floor(Math.random() * 360);
+      tagColors[tag] = `hsl(${hue}, 70%, 50%)`;
+      saveTagColors();
+    }
+    return tagColors[tag];
+  }
+
+  function renderOrgTags() {
+    const cards = orgGrid.querySelectorAll('.org-card');
+    cards.forEach(card => {
+      const container = card.querySelector('.org-tags');
+      if (!container) return;
+      container.innerHTML = '';
+      const tagsData = card.getAttribute('data-tags');
+      if (!tagsData) return;
+      try {
+        const tags = JSON.parse(tagsData).sort();
+        tags.forEach(tag => {
+          const el = document.createElement('span');
+          el.className = 'org-tag';
+          el.textContent = tag;
+          const color = getTagColor(tag);
+          el.style.borderColor = color;
+          el.style.color = color;
+          container.appendChild(el);
+        });
+      } catch (e) {
+        console.error('Error parsing org tags:', e);
+      }
+    });
+  }
+
+  renderOrgTags();
 })();
